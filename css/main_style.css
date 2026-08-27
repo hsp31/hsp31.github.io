@@ -1,3 +1,11 @@
+/*
+Color Palette from colorbrewer2.org.
+#ffffe5 - very light orange
+#fe9929 - med. orange
+#c6dbef - light blue
+#225ea8 - med. blue
+#980043 - dark pink
+
 body {
   background-color: #ffffe5;
   color: #225ea8;
