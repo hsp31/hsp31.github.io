@@ -11,7 +11,24 @@ body {
   background-color: #ffffe5;
   color: #225ea8;
   text-align: center;
+  margin: 0;
 }
 h1 {
   color: #980043
+}
+
+#body-container {
+
+}
+#header {
+
+}
+#profile-picture {
+
+}
+#welcome-text {
+
+}
+#research-interests {
+
 }
