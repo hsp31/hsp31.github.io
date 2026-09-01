@@ -1,6 +1,7 @@
 /*
 Color Palette from colorbrewer2.org.
 #ffffe5 - very light orange
+#fff7bc - light orange
 #fe9929 - med. orange
 #c6dbef - light blue
 #225ea8 - med. blue
@@ -14,29 +15,33 @@ body {
   margin: 0;
 }
 h1 {
-  color: #980043
+  color: #980043;
   padding: 5px;
   margin: 0;
 }
 
 #body-container {
-  background-color: #c6dbef
+  background-color: #fff7bc;
   max-width: 1000px;
   margin: auto;
   min-height: 100vh;
-  border: 2px solid #225ea8
+  border: 2px solid #fe9929;
   border-radius: 25px;
   overflow: hidden;
 }
 #header {
-
+  background-color: #fe9929;
 }
 #profile-picture {
-
+  float: left;
 }
 #welcome-text {
-
+  padding-top: 25px;
+  font-size: 25px;
 }
 #research-interests {
-
+  text-align: left;
+  font-size: 25px;
+  position: relative;
+  left: 50px;
 }
