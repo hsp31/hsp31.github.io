@@ -11,13 +11,6 @@ var webmaps = [
   ]
 ];
 
-
-
-
-
-
-
-
 function welcome()
 {
   let a = "Please enter your name.";
@@ -28,15 +21,22 @@ function welcome()
   return message
 }
 
-function webmap_table()
-{
+function webmap_table() {
   document.write("<table width=100%>");
-  for (var row=0; row < webmaps.length; row++)
-  {
-    document.write("<tr>");
-    for (var column=0; column < webmaps[0].length; column++)
-    {
-      document.write("<td>" + webmaps[row][column] + "</td>");
+
+  for (var row = 0; row < webmaps.length; row++) {
+
+    if (row % 1 == 0) {
+      document.write("<tr style='background-color: #fee391;'>");
+    } else {
+      document.write("<tr style='background-color: #fec44f;'>");
+    }
+    for (var column = 0; column < webmaps[row].length; column++) {
+      if (column == webmaps[row].length - 1){
+      document.write("<td style='font-size: 20px;'>" + webmaps[row][column] + "</td>");
+    } else {
+      document.write("<td style='font-size: 25px;'>" + webmaps[row][column] + "</td>");
+    }
     }
     document.write("</tr>");
   }
