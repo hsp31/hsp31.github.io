@@ -18,6 +18,7 @@
       </div>
       <div id="welcome-text">
         <p>
+          My name is Kaelyn Thompson. <br>
           Welcome to my webpage. <br>
           I am a student in the
           <a href="https://www.geo.txstate.edu/">Geography and Environmental
@@ -36,7 +37,15 @@
         </<p>
       </div>
     </div>
-    <div>
-
+    <div id="copyright">
+      <script>
+        // makes new variable for today being todays date, finds it
+        var today = new Date();
+        // makes new variable year, finds the year
+        var year = today.getFullYear();
+        // writes the date into the page
+        document.writeln("Copyright &copy; " + year);
+      </script>
+    </div>
   </body>
 </html>
