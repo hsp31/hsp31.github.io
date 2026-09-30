@@ -104,7 +104,7 @@ var peruIcon = L.icon({
   iconUrl: 'images/building_14853292.png',
   iconSize: [30,30],
 });
-var chickenIcon = L.icon({
+var chichenIcon = L.icon({
   iconUrl: 'images/pyramid_13989249.png',
   iconSize: [30,30],
 });
@@ -112,15 +112,50 @@ var romeIcon = L.icon({
   iconUrl: 'images/colosseum_3197130.png',
   iconSize: [30,30],
 });
-
 //markers
   var tajmarker = L.marker([27.174961, 78.042385], { icon: tajIcon }).addTo(mymap);
   var chinamarker = L.marker([40.334245, 116.477652], { icon: chinaIcon }).addTo(mymap);
   var petramarker = L.marker([30.328611, 35.441944], { icon: petraIcon }).addTo(mymap);
   var redeemermarker = L.marker([-22.951389, -43.2108334], { icon: redeemerIcon }).addTo(mymap);
   var perumarker = L.marker([-13.163056, -72.545556], { icon: peruIcon }).addTo(mymap);
-  var chickenmarker = L.marker([20.682778, -88.569167], { icon: chickenIcon }).addTo(mymap);
+  var chichenmarker = L.marker([20.682778, -88.569167], { icon: chichenIcon }).addTo(mymap);
   var romemarker = L.marker([41.890169, 12.492269], { icon: romeIcon }).addTo(mymap);
+//popups
+tajmarker.bindPopup(
+  "<h4>India's Taj Mahal</h4>" +
+  "<img src='images/taj-mahal.jpg' width='170'>" +
+  "<p>The Taj Mahal is an ivory-white marble mausoleum located on the right bank of the Yamuna River in Agra, Uttar Pradesh, India.</p>"
+);
+chinamarker.bindPopup(
+  "<h4>Great Wall of China</h4>" +
+  "<img src='images/the-great-wall-of-china.jpg' width='150'>" +
+  "<p>The Great Wall of China is a massive series of fortifications spanning more than 12,400 miles across northern China.</p>"
+);
+petramarker.bindPopup(
+  "<h4>Petra in Jordan</h4>" +
+  "<img src='images/petra_jordan.jpg' width='170'>" +
+  "<p>Petra is an ancient city located in present-day Jordan, is renowned for its stunning rock-cut architecture and water conduit system.</p>"
+);
+redeemermarker.bindPopup(
+  "<h4>Brazil's statue of Christ the Redeemer</h4>" +
+  "<img src='images/christ-redeemer.webp' width='170'>" +
+  "<p>Christ the Redeemer is a massive Art Deco statue of Jesus Christ located atop Corcovado Mountain in Rio de Janeiro, Brazil.</p>"
+);
+perumarker.bindPopup(
+  "<h4>Peru's Machu Picchu</h4>" +
+  "<img src='images/machu-picchu.jpg' width='170'>" +
+  "<p>Machu Picchu is a 15th-century Inca citadel perched high on a mountain ridge in the Cusco Region of Peru, renowned for its dry-stone architecture.</p>"
+);
+chichenmarker.bindPopup(
+  "<h4>Mexico's Chichen Itza pyramid</h4>" +
+  "<img src='images/Chichen_Itza_3.jpg' width='170'>" +
+  "<p>El Castillo, also known as the Temple of Kukulcan, is a Mesoamerican step-pyramid that dominates the center of the Chichen Itza archaeological site in the Mexican state of Yucatán.</p>"
+);
+romemarker.bindPopup(
+  "<h4>The Colosseum in Rome</h4>" +
+  "<img src='images/Colosseum_Rome.jpg' width='150'>" +
+  "<p>The Colosseum is an elliptical amphitheatre in the centre of Rome, Italy, it is the largest ancient amphitheatre ever built.</p>"
+);
   /* bunnyIcon = L.icon({
 iconUrl: 'https://image.shutterstock.com/image-photo/red-
 bunny-rabbit-portrait-looking-260nw-589399619.jpg',

@@ -1,3 +1,24 @@
-.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+/* .leaflet-popup-content-wrapper, .leaflet-popup-tip {
 background: yellow;
+}
+*/
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background-color: #fee391 !important;
+}
+.leaflet-popup-content {
+  color: #980043;
+  padding: 15px;
+  width: 250px;
+  min-height: 150px;
+  text-align: center;
+}
+ .leaflet-popup-content h4 {
+  text-align: center;
+  font-weight: bolder !important;
+  font-size: 16px !important;
+  margin-bottom: 5px;
+}
+.leaflet-popup-content p {
+  font-weight: normal !important;
+  font-size: 13px !important;
 }
