@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Lab 7 Homework</title>
+<style>
+  body {
+    align-items: left;
+    height: 15px;
+    margin: 0;
+    background-color: #c6dbef;
+    font-family: sans-serif;
+  }
+
+  #navDiv {
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: left;
+  }
+
+  select {
+    padding: 8px;
+    font-size: 16px;
+  }
+</style>
+</head>
+<body>
+
+  <div id="navDiv">
+    <h2>Lab 7 Tasks Menu</h2>
+    <select onchange="if(this.value) { window.open(this.value, '_blank'); this.selectedIndex=0; }">
+      <option value="simple_mapping.html">1. Simple Mapping</option>
+      <option value="tile_layer.html">2. Tile Layers</option>
+      <option value="dynamic_layers.html">3. Dynamic Layers</option>
+      <option value="on_event.html">4. On Event</option>
+      <option value="basemap_gallery.html">5. Basemap Gallery</option>
+      <option value="query_task.html">6. Query Task</option>
+    </select>
+  </div>
+
+</body>
+</html>
