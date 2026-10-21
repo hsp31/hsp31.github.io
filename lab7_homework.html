@@ -2,34 +2,134 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Lab 7 Homework</title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<title>Lab 7 Homework - Philly Murals</title>
+
+<link rel="stylesheet" href="https://js.arcgis.com/4.21/esri/themes/light/main.css"/>
+<script src="https://js.arcgis.com/4.21/"></script>
+
 <style>
-  body {
-    align-items: left;
-    height: 15px;
-    margin: 0;
-    background-color: #c6dbef;
+  html, body, #viewDiv { padding: 0; margin: 0; height: 100%; width: 100%; }
+
+  /* Tasks Nav Menu*/
+  #navDiv {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: white;
+    padding: 10px;
+    border-radius: 4px;
     font-family: sans-serif;
   }
 
-  #navDiv {
-    background: white;
-    padding: 10px;
-    border-radius: 8px;
-    text-align: left;
+  /* Query Options Box */
+  #optionsDiv {
+    background: dimgray;
+    color: white;
+    padding: 12px;
+    width: 260px;
+    font-family: sans-serif;
+    border-radius: 4px;
   }
 
-  select {
-    padding: 8px;
-    font-size: 16px;
+  /* Overlapping Copyright Footer */
+  #footerDiv {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    text-align: center;
+    padding: 6px;
+    font-size: 12px;
+    font-family: sans-serif;
+  }
+
+  select, button {
+    padding: 5px;
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 8px;
   }
 </style>
+
+<script>
+  require([
+    "esri/Map", "esri/views/MapView", "esri/layers/TileLayer", "esri/layers/FeatureLayer", "esri/layers/GraphicsLayer",
+    "esri/tasks/QueryTask", "esri/tasks/support/Query", "dojo/_base/array", "dojo/dom", "dojo/on", "dojo/domReady!"
+  ], function(Map, MapView, TileLayer, FeatureLayer, GraphicsLayer, QueryTask, Query, arrayUtils, dom, on) {
+
+    // Reference transportation tile layer
+    var transportationLayer = new TileLayer({
+      url: "https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer"
+    });
+
+    // Symbols for murals
+    var symbolRenderer = {
+      type: "simple",
+      symbol: { type: "simple-marker", size: 8, color: "red", outline: { width: 1, color: "white" } }
+    };
+
+    // Feature layer with symbol renderer applied
+    var muralsLayer = new FeatureLayer({
+      url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/PhillyMurals/FeatureServer/0",
+      renderer: symbolRenderer
+    });
+
+    // Create map and add layers
+    var map = new Map({ basemap: "dark-gray-vector", layers: [transportationLayer, muralsLayer] });
+
+    // View centered on Philadelphia
+    var view = new MapView({
+      container: "viewDiv",
+      map: map,
+      zoom: 13,
+      center: [-75.1652, 39.9496]
+    });
+
+    // Query setup
+    var muralsUrl = "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/PhillyMurals/FeatureServer/0";
+    var resultsLayer = new GraphicsLayer();
+    map.add(resultsLayer);
+
+    var qTask = new QueryTask({ url: muralsUrl });
+    var params = new Query({ returnGeometry: true, outFields: ["*"] });
+
+    view.when(function(){
+      view.ui.add("optionsDiv", "bottom-right");
+      on(dom.byId("doBtn"), "click", doQuery);
+    });
+
+    // Execute query function
+    function doQuery(){
+      resultsLayer.removeAll();
+      params.where = dom.byId("attSelect").value + " " + dom.byId("signSelect").value + " '%" + dom.byId("valSelect").value + "%'";
+      qTask.execute(params).then(getResults).catch(function(err){ console.error(err); });
+    }
+
+    // Process results
+    function getResults(response){
+      var popResults = arrayUtils.map(response.features, function(feature){
+        return feature;
+      });
+
+      resultsLayer.addMany(popResults);
+      view.goTo(popResults);
+      dom.byId("printResults").innerHTML = popResults.length + " murals found!";
+    }
+
+  });
+</script>
 </head>
 <body>
+  <div id="viewDiv"></div>
 
+  // Tasks Navigation Menu
   <div id="navDiv">
-    <h2>Lab 7 Tasks Menu</h2>
+    <h3>Lab 7 Tasks</h3>
     <select onchange="if(this.value) { window.open(this.value, '_blank'); this.selectedIndex=0; }">
+      <option value="" disabled selected>Select Task</option>
       <option value="simple_mapping.html">1. Simple Mapping</option>
       <option value="tile_layer.html">2. Tile Layers</option>
       <option value="dynamic_layers.html">3. Dynamic Layers</option>
@@ -37,6 +137,37 @@
       <option value="basemap_gallery.html">5. Basemap Gallery</option>
       <option value="query_task.html">6. Query Task</option>
     </select>
+  </div>
+
+  // Query Options Widget
+  <div class="esri-widget" id="optionsDiv">
+    <h3>Mural Query</h3>
+
+    <label>Field:</label>
+    <select class="esri-widget" id="attSelect">
+      <option value="ADDRESS" selected>Address</option>
+    </select>
+
+    <label>Condition:</label>
+    <select class="esri-widget" id="signSelect">
+      <option value="LIKE" selected>contains</option>
+    </select>
+
+    <label>Street Keyword:</label>
+    <select class="esri-widget" id="valSelect">
+      <option value="Market" selected>Market</option>
+      <option value="Broad">Broad</option>
+      <option value="Chestnut">Chestnut</option>
+      <option value="Walnut">Walnut</option>
+    </select>
+
+    <button class="esri-widget" id="doBtn">Run Query</button>
+    <p><span id="printResults"></span></p>
+  </div>
+
+  <!-- Copyright Footer -->
+  <div id="footerDiv">
+    <p>&copy; 2026 Kaelyn Thompson, GEO 4422/5408 Web Mapping Lab 7 Homework</p>
   </div>
 
 </body>
